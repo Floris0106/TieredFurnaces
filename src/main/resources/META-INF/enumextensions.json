@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/inventory/RecipeBookType",
+      "name": "TIEREDFURNACES_FIRING",
+      "constructor": "()V",
+      "parameters": {
+        "class": "floris0106/tieredfurnaces/EnumExtensions$RecipeBookType",
+        "field": "FIRING"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/RecipeBookCategories",
+      "name": "TIEREDFURNACES_KILN_SEARCH",
+      "constructor": "(Ljava/util/function/Supplier;)V",
+      "parameters": {
+        "class": "floris0106/tieredfurnaces/EnumExtensions$RecipeBookCategories",
+        "field": "KILN_SEARCH"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/RecipeBookCategories",
+      "name": "TIEREDFURNACES_KILN_BLOCKS",
+      "constructor": "(Ljava/util/function/Supplier;)V",
+      "parameters": {
+        "class": "floris0106/tieredfurnaces/EnumExtensions$RecipeBookCategories",
+        "field": "KILN_BLOCKS"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/RecipeBookCategories",
+      "name": "TIEREDFURNACES_KILN_MISC",
+      "constructor": "(Ljava/util/function/Supplier;)V",
+      "parameters": {
+        "class": "floris0106/tieredfurnaces/EnumExtensions$RecipeBookCategories",
+        "field": "KILN_MISC"
+      }
+    }
+  ]
+}
