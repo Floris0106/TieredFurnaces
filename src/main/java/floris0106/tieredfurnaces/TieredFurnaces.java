@@ -1,6 +1,7 @@
 package floris0106.tieredfurnaces;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
 import floris0106.tieredfurnaces.block.TieredBlastFurnaceBlock;
@@ -23,6 +24,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -69,6 +72,8 @@ public class TieredFurnaces
     public static final DeferredRegister<ResourceLocation> STATS = DeferredRegister.create(Registries.CUSTOM_STAT, MODID);
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, MODID);
 	public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MODID);
+    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, MODID);
+    public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(Registries.VILLAGER_PROFESSION, MODID);
 
 	public static final Map<FurnaceTier, Supplier<TieredFurnaceBlock>> TIERED_FURNACE_BLOCKS;
 	public static final Map<FurnaceTier, Supplier<TieredBlastFurnaceBlock>> TIERED_BLAST_FURNACE_BLOCKS;
@@ -221,7 +226,7 @@ public class TieredFurnaces
 	);
 
 	public static final DeferredHolder<RecipeType<?>, RecipeType<FiringRecipe>> FIRING_RECIPE_TYPE = RECIPE_TYPES.register(
-        "firing", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(MODID, "firing"))
+        "firing", () -> RecipeType.simple(resourceLocation("firing"))
 	);
 
 	public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FiringRecipe>> FIRING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(
@@ -229,7 +234,7 @@ public class TieredFurnaces
 	);
 
     public static final DeferredHolder<ResourceLocation, ResourceLocation> INTERACT_WITH_KILN_STAT = STATS.register(
-        "interact_with_kiln", () -> ResourceLocation.fromNamespaceAndPath(MODID, "interact_with_kiln")
+        "interact_with_kiln", () -> resourceLocation("interact_with_kiln")
     );
 
 	public static final DeferredHolder<MenuType<?>, MenuType<TieredFurnaceMenu>> TIERED_FURNACE_MENU = MENU_TYPES.register(
@@ -248,6 +253,24 @@ public class TieredFurnaces
 	public static final DeferredHolder<SoundEvent, SoundEvent> KILN_FIRE_CRACKLE_SOUND_EVENT = SOUND_EVENTS.register(
 		"block.kiln.fire_crackle", SoundEvent::createVariableRangeEvent
 	);
+    public static final DeferredHolder<SoundEvent, SoundEvent> POTTER_WORK_SOUND_EVENT = SOUND_EVENTS.register(
+        "entity.villager.work_potter", SoundEvent::createVariableRangeEvent
+    );
+
+    public static final DeferredHolder<PoiType, PoiType> KILN_POI_TYPE = POI_TYPES.register(
+        "kiln", () -> new PoiType(ImmutableSet.copyOf(TIERED_KILN_BLOCKS.get(FurnaceTier.BASE).get().getStateDefinition().getPossibleStates()), 1, 1)
+    );
+
+    public static final DeferredHolder<VillagerProfession, VillagerProfession> POTTER_PROFESSION = VILLAGER_PROFESSIONS.register(
+        "potter", () -> new VillagerProfession(
+            "potter",
+            poiType -> poiType.is(KILN_POI_TYPE.getKey()),
+            poiType -> poiType.is(KILN_POI_TYPE.getKey()),
+            ImmutableSet.of(),
+            ImmutableSet.of(),
+            POTTER_WORK_SOUND_EVENT.get()
+        )
+    );
 
     @SuppressWarnings("unused")
 	public TieredFurnaces(IEventBus modEventBus, ModContainer modContainer)
@@ -261,6 +284,8 @@ public class TieredFurnaces
 		STATS.register(modEventBus);
 		MENU_TYPES.register(modEventBus);
 		SOUND_EVENTS.register(modEventBus);
+        POI_TYPES.register(modEventBus);
+        VILLAGER_PROFESSIONS.register(modEventBus);
 
 		modEventBus.register(this);
     }

@@ -21,11 +21,13 @@ public class Language extends LanguageProvider
 	protected void addTranslations()
 	{
 		add("itemGroup.tieredFurnaces", "Tiered Furnaces");
-		add("stat.minecraft.interact_with_anvil", "Interactions with Kiln");
+		add("stat.tieredfurnaces.interact_with_kiln", "Interactions with Kiln");
 		add("gui.recipebook.toggleRecipes.firable", "Showing Firable");
 		add("item.tieredfurnaces.peltier_element", "Peltier Element");
 		add("container.abstracttieredfurnace.energy", "Energy: %s/%s FE");
-		add("subtitles.block.blastfurnace.fire_crackle", "Kiln crackles");
+		add("subtitles.block.kiln.fire_crackle", "Kiln crackles");
+        add("subtitles.entity.villager.work_potter", "Potter works");
+        add("entity.minecraft.villager.tieredfurnaces.potter", "Potter");
 
 		for (FurnaceTier tier : FurnaceTier.values())
 		{

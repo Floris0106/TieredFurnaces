@@ -24,6 +24,7 @@ public class Data
 
 		generator.addProvider(event.includeServer(), new Loot(output, lookup));
 		generator.addProvider(event.includeServer(), new BlockTags(output, lookup, fileHelper));
+        generator.addProvider(event.includeServer(), new PoiTypeTags(output, lookup, fileHelper));
 		generator.addProvider(event.includeServer(), new Recipes(output, lookup));
 
 		generator.addProvider(event.includeClient(), new Language(output));
