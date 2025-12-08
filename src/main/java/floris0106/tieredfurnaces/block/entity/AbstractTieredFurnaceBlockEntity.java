@@ -5,6 +5,8 @@ import floris0106.tieredfurnaces.FurnaceType;
 import floris0106.tieredfurnaces.TieredFurnaces;
 import floris0106.tieredfurnaces.block.ITieredFurnaceBlock;
 import floris0106.tieredfurnaces.config.Config;
+import floris0106.tieredfurnaces.energy.EnergyStorage;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -24,7 +26,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import org.jetbrains.annotations.NotNull;
@@ -102,7 +103,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
         super.loadAdditional(tag, registries);
         litTicks = tag.getFloat("LitTicks");
         progressTicks = tag.getFloat("ProgressTicks");
-        energyStorage.deserializeNBT(registries, Objects.requireNonNull(tag.get("Energy")));
+		energyStorage.setEnergyClamped(tag.getInt("Energy"));
     }
 
     @Override
@@ -111,7 +112,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
         super.saveAdditional(tag, registries);
         tag.putFloat("LitTicks", litTicks);
         tag.putFloat("ProgressTicks", progressTicks);
-        tag.put("Energy", energyStorage.serializeNBT(registries));
+		tag.putInt("Energy", energyStorage.getEnergyStored());
     }
 
     @Override
@@ -155,18 +156,18 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
             int maxStackSize = blockEntity.getMaxStackSize();
 
 			int generatedEnergy = Mth.floor(Config.PELTIER_ENERGY_GENERATION.get() * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
-			boolean canGenerate = blockEntity.energyStorage.receiveEnergy(generatedEnergy, true) > 0 || fuelIsPeltierElement;
+			boolean canGenerate = blockEntity.energyStorage.getEnergyStored() < blockEntity.energyStorage.getMaxEnergyStored() || fuelIsPeltierElement;
 
 			if (!blockEntity.isLit() && ((inputIsPeltierElement && canGenerate) || canBurn(level.registryAccess(), recipe, blockEntity.items, maxStackSize, blockEntity)))
 			{
                 if (fuelIsPeltierElement)
                 {
                     int consumedEnergy = Mth.floor(Config.PELTIER_ENERGY_CONSUMPTION.get() * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
-                    if (blockEntity.energyStorage.extractEnergy(consumedEnergy, true) < consumedEnergy)
+                    if (blockEntity.energyStorage.getEnergyStored() < consumedEnergy)
                         blockEntity.litDuration = 0;
                     else
                     {
-                        blockEntity.energyStorage.extractEnergy(consumedEnergy, false);
+						blockEntity.energyStorage.setEnergyClamped(blockEntity.energyStorage.getEnergyStored() - consumedEnergy);
                         blockEntity.litDuration = 1;
                     }
                 }
@@ -194,7 +195,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
 				{
 					blockEntity.progressTicks = 1.0f;
 					blockEntity.cookingTotalTime = 1;
-					blockEntity.energyStorage.receiveEnergy(generatedEnergy, false);
+					blockEntity.energyStorage.setEnergyClamped(blockEntity.energyStorage.getEnergyStored() + generatedEnergy);
 				}
 				else
 					blockEntity.progressTicks = 0.0f;
@@ -218,9 +219,17 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
 		else if (!blockEntity.isLit() && blockEntity.progressTicks > 0.0f)
             blockEntity.progressTicks = Math.max(blockEntity.progressTicks - 2.0f, 0.0f);
 
-		if (!fuelIsPeltierElement)
+		if (fuelIsPeltierElement)
+			blockEntity.energyStorage.enableReceiving();
+		else if (inputIsPeltierElement)
+		{
+			blockEntity.energyStorage.enableExtracting();
+
 			for (Direction direction : Direction.values())
 				blockEntity.tryOutputEnergy(direction);
+		}
+		else
+			blockEntity.energyStorage.disable();
 
 		if (wasLit != blockEntity.isLit())
 		{
