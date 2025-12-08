@@ -102,6 +102,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
         super.loadAdditional(tag, registries);
         litTicks = tag.getFloat("LitTicks");
         progressTicks = tag.getFloat("ProgressTicks");
+        energyStorage.deserializeNBT(registries, Objects.requireNonNull(tag.get("Energy")));
     }
 
     @Override
@@ -110,6 +111,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
         super.saveAdditional(tag, registries);
         tag.putFloat("LitTicks", litTicks);
         tag.putFloat("ProgressTicks", progressTicks);
+        tag.put("Energy", energyStorage.serializeNBT(registries));
     }
 
     @Override
