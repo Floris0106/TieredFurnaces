@@ -37,8 +37,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBlockEntity
 {
-	private static final int ENERGY_BUFFER_SIZE = 100000;
-
 	private final FurnaceTier tier;
 	private final FurnaceType type;
 	private final Component defaultName;
@@ -88,7 +86,7 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
 		}
 		else
 			throw new IllegalStateException("Block must be an instance of ITieredFurnaceBlock");
-        energyStorage = new EnergyStorage(ENERGY_BUFFER_SIZE);
+        energyStorage = new EnergyStorage(Config.getEnergyBufferCapacity(tier));
 	}
 
 	@Override

@@ -102,6 +102,6 @@ public enum FurnaceTier implements StringRepresentable
 
     public float getSpeedMultiplier()
     {
-        return (float) (double) Config.TIER_SPEED_MULTIPLIERS.get(this).get();
+        return (float) (double) Config.TIER_MULTIPLIERS.get(this).get();
     }
 }

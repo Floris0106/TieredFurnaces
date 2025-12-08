@@ -29,12 +29,14 @@ public class Language extends LanguageProvider
         add("subtitles.entity.villager.work_potter", "Potter works");
         add("entity.minecraft.villager.tieredfurnaces.potter", "Potter");
         add("tieredfurnaces.config.tiers", "Furnace Tiers");
-        add("tieredfurnaces.config.peltier", "Peltier Element");
-        add("tieredfurnaces.config.peltier.generation_per_tick", "Energy Generation per Tick");
-        add("tieredfurnaces.config.peltier.consumption_per_tick", "Energy Consumption per Tick");
+        add("tieredfurnaces.config.energy", "Energy");
+        add("tieredfurnaces.config.energy.generation_per_tick", "Base Generation per Tick");
+        add("tieredfurnaces.config.energy.consumption_per_tick", "Base Consumption per Tick");
+		add("tieredfurnaces.config.energy.buffer_capacity", "Buffer Capacity");
+		add("tieredfurnaces.config.energy.buffer_scaling", "Buffer Scaling");
 
         for (FurnaceTier tier : FurnaceTier.values())
-            add("tieredfurnaces.config.tiers." + tier.getSerializedName() + ".speed_multiplier", tier.humanReadableName() + " Speed Multiplier");
+            add("tieredfurnaces.config.tiers." + tier.getSerializedName() + ".multiplier", tier.humanReadableName() + " Multiplier");
 
 		for (FurnaceTier tier : FurnaceTier.values())
 		{
