@@ -13,6 +13,7 @@ import floris0106.tieredfurnaces.block.entity.TieredFurnaceBlockEntity;
 import floris0106.tieredfurnaces.block.entity.TieredKilnBlockEntity;
 import floris0106.tieredfurnaces.block.entity.TieredSmokerBlockEntity;
 import floris0106.tieredfurnaces.client.gui.screens.inventory.TieredFurnaceScreen;
+import floris0106.tieredfurnaces.config.Config;
 import floris0106.tieredfurnaces.inventory.TieredBlastFurnaceMenu;
 import floris0106.tieredfurnaces.inventory.TieredFurnaceMenu;
 import floris0106.tieredfurnaces.inventory.TieredKilnMenu;
@@ -45,6 +46,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -272,7 +274,6 @@ public class TieredFurnaces
         )
     );
 
-    @SuppressWarnings("unused")
 	public TieredFurnaces(IEventBus modEventBus, ModContainer modContainer)
     {
 		BLOCKS.register(modEventBus);
@@ -288,6 +289,8 @@ public class TieredFurnaces
         VILLAGER_PROFESSIONS.register(modEventBus);
 
 		modEventBus.register(this);
+
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
 	@SuppressWarnings("RedundantTypeArguments")

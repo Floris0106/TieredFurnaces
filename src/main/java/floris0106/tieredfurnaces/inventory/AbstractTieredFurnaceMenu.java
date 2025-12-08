@@ -1,5 +1,6 @@
 package floris0106.tieredfurnaces.inventory;
 
+import floris0106.tieredfurnaces.config.Config;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,13 +32,13 @@ public abstract class AbstractTieredFurnaceMenu extends AbstractFurnaceMenu {
 	@Override
 	protected boolean canSmelt(ItemStack stack)
 	{
-		return super.canSmelt(stack) || stack.is(TieredFurnaces.PELTIER_ELEMENT_ITEM);
+		return super.canSmelt(stack) || (stack.is(TieredFurnaces.PELTIER_ELEMENT_ITEM) && Config.PELTIER_ENERGY_GENERATION.get() > 0.0);
 	}
 
 	@Override
 	protected boolean isFuel(ItemStack stack)
 	{
-		return super.isFuel(stack) || stack.is(TieredFurnaces.PELTIER_ELEMENT_ITEM);
+		return super.isFuel(stack) || (stack.is(TieredFurnaces.PELTIER_ELEMENT_ITEM) && Config.PELTIER_ENERGY_CONSUMPTION.get() > 0.0);
 	}
 
 	@Override

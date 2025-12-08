@@ -2,6 +2,7 @@ package floris0106.tieredfurnaces;
 
 import com.mojang.serialization.Codec;
 
+import floris0106.tieredfurnaces.config.Config;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
@@ -86,7 +87,7 @@ public enum FurnaceTier implements StringRepresentable
 		};
 	}
 
-	public float getSpeedMultiplier()
+	public float getDefaultSpeedMultiplier()
 	{
 		return switch (this)
 		{
@@ -98,4 +99,9 @@ public enum FurnaceTier implements StringRepresentable
 			case NETHERITE -> 25.0f;
 		};
 	}
+
+    public float getSpeedMultiplier()
+    {
+        return (float) (double) Config.TIER_SPEED_MULTIPLIERS.get(this).get();
+    }
 }

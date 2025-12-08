@@ -4,6 +4,7 @@ import floris0106.tieredfurnaces.FurnaceTier;
 import floris0106.tieredfurnaces.FurnaceType;
 import floris0106.tieredfurnaces.TieredFurnaces;
 import floris0106.tieredfurnaces.block.ITieredFurnaceBlock;
+import floris0106.tieredfurnaces.config.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -36,8 +37,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBlockEntity
 {
 	private static final int ENERGY_BUFFER_SIZE = 100000;
-	private static final int ENERGY_GENERATION_PER_TICK = 20;
-	private static final int ENERGY_CONSUMPTION_PER_TICK = 30;
 
 	private final FurnaceTier tier;
 	private final FurnaceType type;
@@ -153,14 +152,14 @@ public abstract class AbstractTieredFurnaceBlockEntity extends AbstractFurnaceBl
 
             int maxStackSize = blockEntity.getMaxStackSize();
 
-			int generatedEnergy = Mth.floor(ENERGY_GENERATION_PER_TICK * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
+			int generatedEnergy = Mth.floor(Config.PELTIER_ENERGY_GENERATION.get() * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
 			boolean canGenerate = blockEntity.energyStorage.receiveEnergy(generatedEnergy, true) > 0 || fuelIsPeltierElement;
 
 			if (!blockEntity.isLit() && ((inputIsPeltierElement && canGenerate) || canBurn(level.registryAccess(), recipe, blockEntity.items, maxStackSize, blockEntity)))
 			{
                 if (fuelIsPeltierElement)
                 {
-                    int consumedEnergy = Mth.floor(ENERGY_CONSUMPTION_PER_TICK * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
+                    int consumedEnergy = Mth.floor(Config.PELTIER_ENERGY_CONSUMPTION.get() * blockEntity.tier.getSpeedMultiplier() * blockEntity.type.peltierEnergyMultiplier());
                     if (blockEntity.energyStorage.extractEnergy(consumedEnergy, true) < consumedEnergy)
                         blockEntity.litDuration = 0;
                     else

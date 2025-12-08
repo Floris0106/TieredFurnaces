@@ -28,6 +28,13 @@ public class Language extends LanguageProvider
 		add("subtitles.block.kiln.fire_crackle", "Kiln crackles");
         add("subtitles.entity.villager.work_potter", "Potter works");
         add("entity.minecraft.villager.tieredfurnaces.potter", "Potter");
+        add("tieredfurnaces.config.tiers", "Furnace Tiers");
+        add("tieredfurnaces.config.peltier", "Peltier Element");
+        add("tieredfurnaces.config.peltier.generation_per_tick", "Energy Generation per Tick");
+        add("tieredfurnaces.config.peltier.consumption_per_tick", "Energy Consumption per Tick");
+
+        for (FurnaceTier tier : FurnaceTier.values())
+            add("tieredfurnaces.config.tiers." + tier.getSerializedName() + ".speed_multiplier", tier.humanReadableName() + " Speed Multiplier");
 
 		for (FurnaceTier tier : FurnaceTier.values())
 		{
