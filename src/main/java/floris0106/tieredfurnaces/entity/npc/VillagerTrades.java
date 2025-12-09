@@ -46,13 +46,11 @@ public class VillagerTrades
     {
         List<ItemListing> noviceTrades = trades.get(1);
         noviceTrades.add(new EmeraldForItems(Items.CLAY_BALL, 10, 16, 2));
-        noviceTrades.add(new ItemsForEmeralds(Items.BRICK, 1, 10, 16, 1));
+        noviceTrades.add(new ItemsForEmeralds(Items.CRACKED_STONE_BRICKS, 1, 4, 16, 1));
 
         List<ItemListing> apprenticeTrades = trades.get(2);
-        apprenticeTrades.add(new EmeraldForItems(Blocks.SANDSTONE, 16, 16, 10));
-        apprenticeTrades.add(new EmeraldForItems(Blocks.RED_SANDSTONE, 16, 16, 10));
-        apprenticeTrades.add(new ItemsForEmeralds(Blocks.SMOOTH_SANDSTONE, 1, 4, 16, 5));
-        apprenticeTrades.add(new ItemsForEmeralds(Blocks.SMOOTH_RED_SANDSTONE, 1, 4, 16, 5));
+        apprenticeTrades.add(new EmeraldForItems(Items.COAL, 15, 16, 2));
+        apprenticeTrades.add(new ItemsForEmeralds(Items.BRICK, 1, 10, 16, 5));
 
         List<ItemListing> journeymanTrades = trades.get(3);
         for (Block block : new Block[]
@@ -90,11 +88,10 @@ public class VillagerTrades
                 Blocks.YELLOW_GLAZED_TERRACOTTA,
                 Blocks.BROWN_GLAZED_TERRACOTTA
             })
-            journeymanTrades.add(new ItemsForEmeralds(block, 1, 2, 16, 10));
+            journeymanTrades.add(new ItemsForEmeralds(block, 1, 4, 16, 10));
 
         List<ItemListing> expertTrades = trades.get(4);
-        expertTrades.add(new EmeraldForItems(Blocks.BASALT, 16, 16, 30));
-        expertTrades.add(new ItemsForEmeralds(Blocks.SMOOTH_BASALT, 1, 4, 16, 15));
+        expertTrades.add(new ItemsForEmeralds(Items.FLOWER_POT, 1, 1, 12, 15));
         expertTrades.add(new ItemsForEmeralds(Items.NETHER_BRICK, 1, 10, 12, 15));
 
         List<ItemListing> masterTrades = trades.get(5);
