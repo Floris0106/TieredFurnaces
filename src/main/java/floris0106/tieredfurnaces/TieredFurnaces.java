@@ -255,22 +255,22 @@ public class TieredFurnaces
 	public static final DeferredHolder<SoundEvent, SoundEvent> KILN_FIRE_CRACKLE_SOUND_EVENT = SOUND_EVENTS.register(
 		"block.kiln.fire_crackle", SoundEvent::createVariableRangeEvent
 	);
-    public static final DeferredHolder<SoundEvent, SoundEvent> POTTER_WORK_SOUND_EVENT = SOUND_EVENTS.register(
-        "entity.villager.work_potter", SoundEvent::createVariableRangeEvent
+    public static final DeferredHolder<SoundEvent, SoundEvent> CLAYWORKER_WORK_SOUND_EVENT = SOUND_EVENTS.register(
+        "entity.villager.work_clayworker", SoundEvent::createVariableRangeEvent
     );
 
     public static final DeferredHolder<PoiType, PoiType> KILN_POI_TYPE = POI_TYPES.register(
         "kiln", () -> new PoiType(ImmutableSet.copyOf(TIERED_KILN_BLOCKS.get(FurnaceTier.BASE).get().getStateDefinition().getPossibleStates()), 1, 1)
     );
 
-    public static final DeferredHolder<VillagerProfession, VillagerProfession> POTTER_PROFESSION = VILLAGER_PROFESSIONS.register(
-        "potter", () -> new VillagerProfession(
-            "potter",
+    public static final DeferredHolder<VillagerProfession, VillagerProfession> CLAYWORKER_PROFESSION = VILLAGER_PROFESSIONS.register(
+        "clayworker", () -> new VillagerProfession(
+            "clayworker",
             poiType -> poiType.is(KILN_POI_TYPE.getKey()),
             poiType -> poiType.is(KILN_POI_TYPE.getKey()),
             ImmutableSet.of(),
             ImmutableSet.of(),
-            POTTER_WORK_SOUND_EVENT.get()
+            CLAYWORKER_WORK_SOUND_EVENT.get()
         )
     );
 

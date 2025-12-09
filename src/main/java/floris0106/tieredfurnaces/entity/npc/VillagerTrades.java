@@ -42,7 +42,7 @@ public class VillagerTrades
         expertTrades.add(new ItemsForEmeralds(Blocks.CALCITE, 1, 4, 16, 15));
     }
 
-    public static void registerPotterTrades(Int2ObjectMap<List<ItemListing>> trades)
+    public static void registerClayworkerTrades(Int2ObjectMap<List<ItemListing>> trades)
     {
         List<ItemListing> noviceTrades = trades.get(1);
         noviceTrades.add(new EmeraldForItems(Items.CLAY_BALL, 10, 16, 2));

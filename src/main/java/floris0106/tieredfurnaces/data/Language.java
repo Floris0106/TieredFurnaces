@@ -26,8 +26,8 @@ public class Language extends LanguageProvider
 		add("item.tieredfurnaces.peltier_element", "Peltier Element");
 		add("container.abstracttieredfurnace.energy", "Energy: %s/%s FE");
 		add("subtitles.block.kiln.fire_crackle", "Kiln crackles");
-        add("subtitles.entity.villager.work_potter", "Potter works");
-        add("entity.minecraft.villager.tieredfurnaces.potter", "Potter");
+        add("subtitles.entity.villager.work_clayworker", "Clayworker works");
+        add("entity.minecraft.villager.tieredfurnaces.clayworker", "Clayworker");
         add("tieredfurnaces.config.tiers", "Furnace Tiers");
         add("tieredfurnaces.config.energy", "Energy");
         add("tieredfurnaces.config.energy.generation_per_tick", "Base Generation per Tick");

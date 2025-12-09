@@ -26,14 +26,14 @@ public class SoundDefinitions extends SoundDefinitionsProvider
 				.with(sound("block/blastfurnace/blastfurnace5"))
 				.subtitle("subtitles.block.kiln.fire_crackle")
 		);
-        add(TieredFurnaces.POTTER_WORK_SOUND_EVENT,
+        add(TieredFurnaces.CLAYWORKER_WORK_SOUND_EVENT,
             SoundDefinition.definition()
                 .with(sound("block/blastfurnace/blastfurnace1"))
                 .with(sound("block/blastfurnace/blastfurnace2"))
                 .with(sound("block/blastfurnace/blastfurnace3"))
                 .with(sound("block/blastfurnace/blastfurnace4"))
                 .with(sound("block/blastfurnace/blastfurnace5"))
-                .subtitle("subtitles.entity.villager.work_potter")
+                .subtitle("subtitles.entity.villager.work_clayworker")
         );
 	}
 }

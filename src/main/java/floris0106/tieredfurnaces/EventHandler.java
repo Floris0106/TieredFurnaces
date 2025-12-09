@@ -14,7 +14,7 @@ public class EventHandler
     {
         if (event.getType() == VillagerProfession.MASON)
             VillagerTrades.registerMasonTrades(event.getTrades());
-        else if (event.getType() == TieredFurnaces.POTTER_PROFESSION.get())
-            VillagerTrades.registerPotterTrades(event.getTrades());
+        else if (event.getType() == TieredFurnaces.CLAYWORKER_PROFESSION.get())
+            VillagerTrades.registerClayworkerTrades(event.getTrades());
     }
 }
